@@ -12,4 +12,4 @@ urlpatterns = [
     path('tvs/',include('Tvss.urls'),name='Tvs'),
     path('account/',views.userAccount,name='account'),
     path('account/update/',views.updateAccount,name='update_account'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
