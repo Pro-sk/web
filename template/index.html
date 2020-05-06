@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+<title>{% block title %}Home Page{% endblock %}</title>
+<body>
+	{% block body %}
+	<div class="card w-100">
+        <div class="card-header font-weight-bold">Smart Mobile Phones</div>
+        <div class="card-body p-0 m-0">
+			<div class="row no-gutters text-center mx-auto">
+				{% for i in phone %}
+					<div class="card col-md-2 text-center p-2 ">
+						<div class="card-img-top text-center">
+							<img src="media/{{i.pimg}}" alt="" class="img-responsive phone" style="height:150px;width:200px;object-fit: contain">
+						</div>
+						<div class="card-body p-2 m-0">
+							<p class="p-0 m-0 text-success font-weight-bold">Rs <script>money("{{i.price }}")</script></p>
+							<p class="m-0 p-0" style="font-size:13px">{{i.memory|truncatewords:7}}</p>
+							<p class="p-0 m-0 text-info font-weight-bold">{{ i.pdesc|cut:"From " }}</p>
+						</div>
+						<div class="cart-footer">
+							<a href="phone/view/{{i.id}}" class="btn btn-link bg-dark text-white my-2">View Now</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div class="card w-100">
+        <div class="card-header font-weight-bold">Laptops</div>
+        <div class="card-body p-0 m-0">
+			<div class="row no-gutters">
+				{% for i in laptop %}
+					<div class="card col-md-2 text-center p-2">
+						<div class="card-img-top text-center w-100">
+							<img src="media/{{i.pimg}}" alt="" class="img-responsive laptop" style="height:100px;width:150px;object-fit:contain">
+						</div>
+						<div class="card-body">
+							<p class="p-0 m-0 text-success font-weight-bold">Rs <script>money("{{ i.price }}")</script></p>
+							<p class="m-0 p-0" style="font-size:13px">{{i.memory|truncatewords:9}}</p>
+							<p class="p-0 m-0 text-info font-weight-bold">{{ i.pdesc|cut:"From " }}</p>
+						</div>
+						<div class="cart-footer">
+							<a href="laptop/view/{{i.id}}" class="btn btn-link bg-dark text-white my-2">View Now</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<div class="card w-100">
+        <div class="card-header font-weight-bold">Televisions</div>
+        <div class="card-body p-0 m-0">
+			<div class="row no-gutters">
+				{% for i in tvs %}
+					<div class="card col-md-2 text-center p-2">
+						<div class="card-img-top text-center w-100">
+							<img src="media/{{i.pimg}}" alt="" class="img-responsive laptop" style="height:100px;width:150px;object-fit:contain">
+						</div>
+						<div class="card-body">
+							<p class="p-0 m-0 text-success font-weight-bold">Rs <script>money("{{ i.price }}")</script></p>
+							<p class="m-0 p-0" style="font-size:13px">{{i.resolution|truncatewords:9}}</p>
+							<p class="p-0 m-0 text-info font-weight-bold">{{ i.pdesc|cut:"From " }}</p>
+						</div>
+						<div class="cart-footer">
+							<a href="tvs/view/{{i.id}}" class="btn btn-link bg-dark text-white my-2">View Now</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	{% endblock %}
+</body>

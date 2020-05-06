@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+<title>{% block title %}{{tvs.0.pname}}{% endblock title %}</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<body>
+    {% block body %}
+    <div class="row no-gutters p-4" style="border-bottom:2px solid red;">
+        <div class="col-md-4">
+            <div class="img col-md-12 text-center">
+                <img src="/media/{{tvs.0.pimg}}" alt="" style="width:300px;height:250px;object-fit:contain">
+            </div>
+            <div class="action col-md-12 mt-4 text-center">
+                <form action="/buy/Tvs/" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" id="id" value="{{tvs.0.id}}">
+                    <a href="/addtocart/{{tvs.0.id}}/Tvs" class="btn bg-info text-white">Add To Cart</a>
+                    <button class="btn btn-danger" type="submit">Buy Now</input>
+                </form> 
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p class="font-weight-bold" style="font-size: 22px;">{{tvs.0.pname}}</p>
+            <p class="text-success font-weight-bold">Rs <script>money("{{ tvs.0.price }}")</script></p>
+            <p class="font-weight-bold">{{tvs.0.pdesc}}-</p>
+            <div class="mx-4" style="font-size:16px">
+                <i class="fa fa-arrow-right mr-2 text-success"></i>{{tvs.0.pdesc}} <br>
+                <i class="fa fa-arrow-right mr-2 text-success"></i>{{tvs.0.resolution}} <br>
+                <i class="fa fa-arrow-right mr-2 text-success"></i>{{tvs.0.usb}} <br>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center m-auto">
+        <div class="col-md-5">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="msg">Feedback</label>
+                    <textarea name="msg" id="msg" cols="30" rows="10" required class="form-control">
+
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <label>Your Rating</label><br>
+                    <i class="fa fa-star mr-2" style="font-size: 25px" id="ch1" onclick="checkStar('ch1','1')"></i>
+                    <i class="fa fa-star mr-2" style="font-size: 25px" id="ch2" onclick="checkStar('ch2','2')"></i>
+                    <i class="fa fa-star mr-2" style="font-size: 25px" id="ch3" onclick="checkStar('ch3','3')"></i>
+                    <i class="fa fa-star mr-2" style="font-size: 25px" id="ch4" onclick="checkStar('ch4','4')"></i>
+                    <i class="fa fa-star mr-2" style="font-size: 25px" id="ch5" onclick="checkStar('ch5','5')"></i>
+                    <br>
+                </div>
+                <input type="hidden" name="pid" value="{{tvs.0.id}}">
+                <input type="hidden" name="star" id="star" value="1">
+                <input type="submit" value="Submit" class="btn btn-info">
+            </form>
+        </div>
+        <div class="col-md-5">
+            {% for f in feed %}
+
+            <div class="d-flex border my-1 p-3 border-bottom-1">
+                <div class="col-md-2">
+                 <img src="/media/user.png" style="width:100%;object-fit: contain">
+                </div>
+               <div class="col-md-4 p-2">
+                    <h6 class="m-0 p-0">{{f.uname|capfirst}}</h6>
+                    <p class="text-muted p-0 m-0">{{f.udate}}</p>
+                    {% if f.star == 1 %}
+                        <i class="fa fa-star  text-warning"></i>
+                    {% elif f.star == 2 %}
+                    <i class="fa fa-star  text-warning"></i>
+                    <i class="fa fa-star  text-warning"></i>
+
+                    {% elif f.star == 3 %}
+                    <i class="fa fa-star  text-warning"></i>
+                    <i class="fa fa-star  text-warning"></i>
+                    <i class="fa fa-star  text-warning"></i>
+
+                    {% elif f.star == 4 %}
+                    <i class="fa fa-star  text-warning"></i>
+                    <i class="fa fa-star  text-warning"></i>
+                    <i class="fa fa-star  text-warning"></i>
+                    <i class="fa fa-star  text-warning"></i>
+
+                    {% else %}
+                    <i class="fa fa-star  text-warning"></i>
+                    <i class="fa fa-star  text-warning"></i>
+                    <i class="fa fa-star  text-warning"></i>
+                    <i class="fa fa-star  text-warning"></i>
+                    <i class="fa fa-star  text-warning"></i>
+
+                    {% endif %}
+                    <p>{{f.msg}}</p>
+               </div>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+    {% if related.count %}
+        <div class="mx-md-4 p-md-4">
+            <h4 class="panel m-3">Related Product</h4>
+            <div class="row no-gutters text-center m-auto">
+                {% for i in related %}
+                    {% if i.id == tvs.0.id %}
+                    {% else %}
+                        <div class="card col-md-2 text-center p-2">
+                            <div class="card-img-top text-center">
+                                <img src="/media/{{i.pimg}}" alt="" class="img-responsive phone" style="height:150px;width:200px;object-fit: contain">
+                            </div>
+                            <div class="card-body">
+                                <p class="p-0 m-0 text-success font-weight-bold">Rs <script>money("{{ i.price }}")</script></p>
+                                <p class="m-0 p-0" style="font-size:13px;">{{i.resolution|truncatechars:30}}</p>
+                            </div>
+                            <div class="card-footer border-0 bg-white">
+                                <a href="{{i.id}}" class="btn btn-link bg-warning text-white my-2">View Now</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% endblock %}
+</body>

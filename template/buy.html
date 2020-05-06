@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+<title>
+    {% block title %}
+    Buy
+    {% endblock %}
+</title>
+
+{% block body %}
+<div class="row no-gutters">
+    <div class="col col-md-6 col-sm-12">
+        <div class="w-100 mt-3 p-md-4">
+            <div class="card w-100 mb-2">
+                <div class="card-header font-weight-bold">
+                    Address
+                </div>
+                <div class="card-body">
+                    <p class="p-0 m-0"><strong>Name : </strong>  {{user.0.uname}}</p>
+                    <p class="p-0 m-0"><strong>Phone : +91</strong>  {{user.0.uphone}}</p class="p-0 m-0">
+                    <p class="p-0 m-0"><strong>Email : </strong>  {{user.0.uemail}}</p class="p-0 m-0">
+                    <p class="p-0 m-0"><strong>Address : </strong>  {{user.0.uadd}}</p class="p-0 m-0">
+                </div>
+            </div>
+            <div class="card mb-3 w-100">
+                <div class="card-header font-weight-bold">My Cart ({{ cart.count }})</div>
+                    <div class="card-body px-0 mx-0">
+                        {% if cart %}
+                            {% for cData in cart %}
+                            <div class="row my-2 py-md-2 border-bottom mx-0 px-0">
+                                <div class="col img-div col-md-3 col-sm-12 text-center p-2 mx-2">
+                                    <img src="/media/{{cData.pimg}}" alt="img" style="width:150px;height:130px;object-fit: contain;">
+                                </div>
+                                <div class="col col-md-8 col-sm-12">
+                                    <p class="m-0 p-0">{{cData.pname}}</p>
+                                    <p class="text-success font-weight-bold m-0 p-0">Rs. <script>money("{{ cData.price }}")</script></p>
+                                    <p class="m-0 p-0"><strong>From - </strong>{{cData.pcategory}}</p>
+                                    <form action="/cart/" method="post" class="my-md-4">
+                                        {%csrf_token %}
+                                        <a href="/{{cData.pcategory}}/view/{{cData.pid}}" class="btn bg-success text-white">View Now </a>
+                                        <input type="hidden" value="{{cData.pid}}" name="id">
+                                        <input type="hidden" value="{{cData.pcategory}}" name="category">
+                                        <input type="submit" class="btn btn-danger" value="Remove">
+                                    </form>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="card-body text-center">
+                                <h5 class="card-title">
+                                    Your Cart is Empty
+                                </h5>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-4 col-sm-12 mt-3 p-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Price Detail</strong>
+                </div>
+                <div class="card-body w-100">
+                    <table class="table w-100">
+                        <tr>
+                            <td class="w-50">Price ({{cart.count}})</td>
+                            <td class="text-right">Rs. <script>money("{{ total }}")</script></td>
+                        </tr>
+                        <tr>
+                            <td>Delivery Charges</td>
+                            <td class="text-success text-right">Free</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grand Total</strong></td>
+                            <td class="text-success text-right"><strong>Rs <script>money("{{ total }}")</script></strong></td>
+                        </tr>
+                    </table>
+                </div> 
+            </div>
+            <a href="{% url 'payment' %}" class="btn btn-warning my-4 text-white">Make Payment</a>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

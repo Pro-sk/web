@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+</head>
+<body>
+    <center>
+        <h1>Please do not refresh this page...</h1>
+    </center>
+     <form method="post" action="https://securegw-stage.paytm.in/order/process" name="paytm">
+        <table border="1">
+           <tbody>
+               {% for k,v in data.items %}
+                    <input type="hidden" name="{{k}}" value="{{v}}">
+                {% endfor %}
+              
+           </tbody>
+        </table>
+        <script type="text/javascript">
+           document.paytm.submit();
+        </script>
+    </form>
+</body>
+</html>

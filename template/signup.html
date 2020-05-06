@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_tags %}
+<title>{% block title %}Sign Up{% endblock title %}</title>
+{% block script %}
+<script>
+  
+</script>
+{% endblock script %}
+
+{% block body %}
+
+<form class="form w-50 mx-auto my-md-4" method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="form-group d-flex">
+      <div class="col-md-6">
+        <label for="uname">{{form.uname.label_tag}}</label>
+        {{form.uname}}
+        {{form.uname.errors}}
+      </div>
+      <div class="col-md-6">
+        <label for="uphone">{{form.uphone.label_tag}}</label>
+        {{form.uphone}}
+        {{form.uphone.errors}}
+      </div>
+    </div>
+    <div class="form-group d-flex">
+      <div class="col-md-6">
+        <label for="uemail">{{form.uemail.label_tag}}</label>
+        {{form.uemail}}
+        {{form.uemail.errors}}
+      </div>
+      <div class="col-md-6">
+        <label for="upass">{{form.upass.label_tag}}</label>
+        {{form.upass}}
+        {{form.upass.errors}}
+      </div>
+    </div>
+    <div class="form-group d-flex">
+      <div class="col-md-4">
+        <label for="city">{{form.city.label_tag}}</label>
+        {{form.city}}
+        {{form.city.errors}}
+      </div>
+      <div class="col-md-4">
+        <label for="state">{{form.state.label_tag}}</label>
+        {{form.state}}
+        {{form.state.errors}}
+      </div>
+      <div class="col-md-4">
+        <label for="zip">{{form.zip.label_tag}}</label>
+        {{form.zip}}
+        {{form.zip.errors}}
+      </div>
+    </div>
+    <div class="form-group col-md-12">
+      <label for="uadd">{{form.uadd.label_tag}}</label>
+      {{form.uadd}}
+      {{form.uadd.errors}}
+    </div>
+    <div class="form-group col-md-12">
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </div>
+  </form>
+
+{% endblock body %}

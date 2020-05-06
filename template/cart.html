@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+<title>{% block title %}My Cart{% endblock title%}</title>
+{% block body %}
+<div class="container w-50 mx-auto mt-3">
+    <div class="card mb-3 w-100">
+        <div class="card-header font-weight-bold">My Cart ({{ cart.count }})</div>
+        <div class="card-body px-0 mx-0">
+            {% if cart.count %}
+                {% for cData in cart %}
+                <div class="d-flex justify-content-center my-2 py-md-2 border-bottom">
+                    <div class="img-div col-md-3">
+                        <img src="/media/{{cData.pimg}}" alt="img" style="width:150px;height:130px;object-fit: contain;">
+                    </div>
+                    <div class="col-md-9">
+                        <p class="m-0 p-0 font-weight-bold">{{cData.pname}}</p>
+                        <p class="text-success font-weight-bold m-0 p-0">Rs. <script>money("{{ cData.price }}")</script></p>
+                        <p class="m-0 p-0"><strong>From - </strong>{{cData.pdesc|cut:"From "}}</p>
+                        <form action="/cart/" method="post" class="my-md-4">
+                            {%csrf_token %}
+                            <a href="/{{cData.pcategory}}/view/{{cData.pid}}" class="btn bg-success text-white">View Now </a>
+                            <input type="hidden" value="{{cData.pid}}" name="id">
+                            <input type="hidden" value="{{cData.pcategory}}" name="category">
+                            <input type="submit" class="btn btn-danger" value="Remove">
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+                <a href="/buy/" class="btn btn-info float-right mr-3 mt-2">Buy Now</a>
+            {% else %}
+                <div class="card-body text-center">
+                <h5 class="card-title">
+                    Your Cart is Empty
+                </h5>
+              </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
