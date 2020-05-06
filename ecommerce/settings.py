@@ -25,7 +25,7 @@ SECRET_KEY = "5e25c66b6d30f738d6417bcbf58ff2798c2a253e7f2af3c3"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://sundar-acadamy.herokuapp.com/"]
 
 
 # Application definition
@@ -125,6 +125,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = {
+    'static'
+}
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
