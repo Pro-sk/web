@@ -25,7 +25,7 @@ SECRET_KEY = "bb43d7cb44fa53e196703f64025d034714d6ae0236f6c1bf"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://sundar-acadamy.herokuapp.com/"]
+ALLOWED_HOSTS = ["https://sundar-academy.herokuapp.com/"]
 
 
 # Application definition
